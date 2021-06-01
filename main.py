@@ -43,7 +43,7 @@ my_screen.onclick(lambda x, y: print(x, y))  # for testing purposes
 
 while not game_end:
     my_screen.update()  # display current animation/objects on screen
-    time.sleep(.1)  # set a delay time in between the updates
+    time.sleep(ball.move_speed)  # set a delay time in between the updates
     ball.move()
 
     # Detect collision with wall- part 1
@@ -51,7 +51,7 @@ while not game_end:
         # ball bounces perpendicularly with respect to its direction angle
         ball.bounce_y()
 
-    # collision with right paddle
+    # collision with right  and left paddle
     if ball.distance(right_paddle) < 50 and ball.xcor() > 460\
             or ball.distance(left_paddle) < 50 and ball.xcor() < -460:
         ball.bounce_x()

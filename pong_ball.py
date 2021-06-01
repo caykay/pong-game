@@ -13,6 +13,7 @@ class Ball(Turtle):
         self.penup()
         # initial direction
         self.setheading(random.choice(DIRECTION))
+        self.move_speed = .1
 
     def move(self):
         self.forward(20)
@@ -25,7 +26,9 @@ class Ball(Turtle):
     def bounce_x(self):
         """Bounce the ball when in collision with a paddle"""
         self.setheading(180 - self.heading())
+        self.move_speed *= .9  # for every collision with paddle boost ball speed
 
     def reset(self):
         super().home()
         self.setheading(random.choice(DIRECTION))
+        self.move_speed = .1
