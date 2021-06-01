@@ -37,7 +37,9 @@ my_screen.onkeypress(fun=right_paddle.up, key="Up")
 my_screen.onkeypress(fun=right_paddle.down, key="Down")
 my_screen.onkeypress(fun=left_paddle.up, key="w")
 my_screen.onkeypress(fun=left_paddle.down, key="s")
+my_screen.onclick(lambda x, y: print(x, y))  # for testing purposes
 
+ball.speed(10)
 while not game_end:
     my_screen.update()  # display current animation/objects on screen
     time.sleep(.1)  # set a delay time in between the updates
@@ -46,14 +48,17 @@ while not game_end:
     # Detect collision with wall- part 1
     if ball.ycor() > 290 or ball.ycor() < -290:
         # ball bounces perpendicularly with respect to its direction angle
-        ball.setheading(-ball.heading())
+        ball.bounce_y()
 
+    # Detect when ball goes past the paddle
+    # Note that this wont affect the paddle collisions
     if ball.xcor() > 490 or ball.xcor() < -500:
         # The respective side of the ball's position loses
         ball.reset()
 
     # collision with right paddle
-    if ball.distance(right_paddle) < 50 and ball.xcor() > 440:
-        print("make contact")
+    if ball.distance(right_paddle) < 50 and ball.xcor() > 460\
+            or ball.distance(left_paddle) < 50 and ball.xcor() < -460:
+        ball.bounce_x()
 
 my_screen.exitonclick()

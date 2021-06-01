@@ -1,6 +1,7 @@
 from turtle import Turtle
 import random
-DIRECTION = [0, 180]
+DIRECTION = [a for a in range(-60, 60, 10)] + \
+            [b for b in range(120, 240, 10)]
 
 
 class Ball(Turtle):
@@ -16,8 +17,14 @@ class Ball(Turtle):
     def move(self):
         self.forward(20)
 
-    def bounce(self):
-        """Bounce the ball depending on the ball's current location"""
+    def bounce_y(self):
+        """Bounce the ball depending on the ball's contact with
+        a wall in the y axis"""
+        self.setheading(-self.heading())
+
+    def bounce_x(self):
+        """Bounce the ball when in collision with a paddle"""
+        self.setheading(180 - self.heading())
 
     def reset(self):
         super().home()
