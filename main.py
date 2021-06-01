@@ -45,12 +45,15 @@ while not game_end:
 
     # Detect collision with wall- part 1
     if ball.ycor() > 290 or ball.ycor() < -290:
-        # ball bounces perpendicularly
+        # ball bounces perpendicularly with respect to its direction angle
         ball.setheading(-ball.heading())
 
     if ball.xcor() > 490 or ball.xcor() < -500:
         # The respective side of the ball's position loses
         ball.reset()
 
+    # collision with right paddle
+    if ball.distance(right_paddle) < 50 and ball.xcor() > 440:
+        print("make contact")
 
 my_screen.exitonclick()

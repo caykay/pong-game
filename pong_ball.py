@@ -1,5 +1,6 @@
 from turtle import Turtle
 import random
+DIRECTION = [0, 180]
 
 
 class Ball(Turtle):
@@ -9,8 +10,8 @@ class Ball(Turtle):
         self.shapesize(.5, .5)
         self.color("white")
         self.penup()
-        # initial direction can be random
-        self.setheading(random.randint(1, 360))
+        # initial direction
+        self.setheading(random.choice(DIRECTION))
 
     def move(self):
         self.forward(20)
@@ -20,4 +21,4 @@ class Ball(Turtle):
 
     def reset(self):
         super().home()
-        self.setheading(random.randint(1, 360))
+        self.setheading(random.choice(DIRECTION))
