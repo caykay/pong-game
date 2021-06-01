@@ -1,6 +1,7 @@
 from turtle import Turtle, Screen
 from paddle import Paddle
 from pong_ball import Ball
+from score_board import ScoreBoard
 import time
 
 my_screen = Screen()
@@ -30,6 +31,7 @@ split_screen()
 right_paddle = Paddle("right")
 left_paddle = Paddle("left")
 ball = Ball()
+sb = ScoreBoard()
 game_end = False
 
 my_screen.listen()
@@ -39,7 +41,6 @@ my_screen.onkeypress(fun=left_paddle.up, key="w")
 my_screen.onkeypress(fun=left_paddle.down, key="s")
 my_screen.onclick(lambda x, y: print(x, y))  # for testing purposes
 
-ball.speed(10)
 while not game_end:
     my_screen.update()  # display current animation/objects on screen
     time.sleep(.1)  # set a delay time in between the updates
@@ -50,15 +51,17 @@ while not game_end:
         # ball bounces perpendicularly with respect to its direction angle
         ball.bounce_y()
 
-    # Detect when ball goes past the paddle
-    # Note that this wont affect the paddle collisions
-    if ball.xcor() > 490 or ball.xcor() < -500:
-        # The respective side of the ball's position loses
-        ball.reset()
-
     # collision with right paddle
     if ball.distance(right_paddle) < 50 and ball.xcor() > 460\
             or ball.distance(left_paddle) < 50 and ball.xcor() < -460:
         ball.bounce_x()
+
+    # Detect when ball goes past the paddle
+    # Note that this wont affect the paddle collisions
+    if ball.xcor() > 490 or ball.xcor() < -500:
+        # The respective side of the ball's position loses
+        sb.update(right=1) if ball.xcor() < 0 else sb.update(left=1)  # if in +ve quadrant or not
+        ball.reset()
+
 
 my_screen.exitonclick()

@@ -9,7 +9,8 @@ class Paddle(Turtle):
         self.color("white")
         self.setheading(90)
         self.penup()
-        self.set_alignment(alignment)
+        self.alignment = alignment
+        self.set_alignment(self.alignment)
 
     def up(self):
         if self.ycor() <= 240:
